@@ -1,32 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Artile from './/components/Article';
-function Hello(props) {
-  let list = [['item1', 'child1', 'item2'], ['item1', 'child1', 'item2']];
-  let html_list = list.map((item) =>
-    <li>
-      <ul>
-      { item.map((child) => <li>{ child }</li>) }
-      </ul>
-    </li>
-   );
-  return <ul>{ html_list }</ul>;
-}
+import ListArticle from './components/ListArticles';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import "antd/dist/antd.css";
+
+const { Header, Content, Footer } = Layout;
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Hello />
-  </React.StrictMode>,
+  <Layout className="layout">
+    <Header>
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+        {new Array(15).fill(null).map((_, index) => {
+          const key = index + 1;
+          return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
+        })}
+      </Menu>
+    </Header>
+    <Content style={{ padding: '0 50px' }}>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>List</Breadcrumb.Item>
+        <Breadcrumb.Item>Article</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="site-layout-content">Content</div>
+      <div id="list-articles">
+        <ListArticle />
+      </div>
+    </Content>
+    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+  </Layout>,
   document.getElementById('root')
 );
-ReactDOM.render(
-  <React.StrictMode>
-    <Artile />
-  </React.StrictMode>,
-  document.getElementById('list-articles')
-);
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
